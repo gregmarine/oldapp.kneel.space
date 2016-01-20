@@ -1,0 +1,12 @@
+{
+  "name": "KNEEL.SPACE",
+  "app_id": "app.kneel.space",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>KNEEL.SPACE</title>
+
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+  </head>
+
+  <body ng-app="kneelspace" ng-controller="KneelSpaceCtrl">
+    <ion-side-menus>
+      <ion-side-menu-content>
+        <ion-header-bar class="bar-dark">
+          <button class="button button-icon" ng-click="togglePrayerLists()">
+            <i class="icon ion-navicon"></i>
+          </button>
+          <h1 class="title">{{activePrayerList.title}}</h1>
+          <!-- New Task button-->
+          <button class="button button-icon" ng-click="newPrayerCard()">
+            <i class="icon ion-compose"></i>
+          </button>
+        </ion-header-bar>
+        <ion-content scroll="false">
+          <!-- our list and list items -->
+          <ion-list class="list-inset">
+            <ion-item ng-repeat="card in activePrayerList.cards">
+              {{card.title}}
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-side-menu-content>
+      
+      <ion-side-menu side="left">
+        <ion-header-bar class="bar-dark">
+          <h1 class="title">Prayer Lists</h1>
+          <button class="button button-icon ion-plus" ng-click="newPrayerList()">
+          </button>
+        </ion-header-bar>
+        
+        <ion-content scroll="false">
+          <ion-list>
+            <ion-item ng-repeat="prayerList in prayerLists" ng-click="selectPrayerList(prayerList, $index)" ng-class="{active: activePrayerList == prayerList}">
+              {{prayerList.title}}
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>
+    
+    <script id="new-prayer-card.html" type="text/ng-template">
+
+      <div class="modal">
+    
+        <!-- Modal header bar -->
+        <ion-header-bar class="bar-secondary">
+          <h1 class="title">New Prayer Card</h1>
+          <button class="button button-clear button-positive" ng-click="closeNewPrayerCard()">Cancel</button>
+        </ion-header-bar>
+    
+        <!-- Modal content area -->
+        <ion-content>
+    
+          <form ng-submit="createPrayerCard(card)">
+            <div class="list">
+              <label class="item item-input item-floating-label">
+                <span class="input-label">Card Title</span>
+                <input type="text" placeholder="Card Title" ng-model="card.title">
+              </label>
+              
+              <label class="item item-input item-floating-label">
+                <span class="input-label">Card Body</span>
+                <textarea placeholder="Card Body" ng-model="card.body"></textarea>
+              </label>
+            </div>
+            <div class="padding">
+              <button type="submit" class="button button-block button-positive">Create Prayer Card</button>
+            </div>
+          </form>
+    
+        </ion-content>
+    
+      </div>
+    
+    </script>
+  </body>
+</html>
